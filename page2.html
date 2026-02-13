@@ -110,14 +110,13 @@
             margin-bottom: 15px;
         }
 
-        /* --- LOADING & STATUS STYLES --- */
         #status-message {
             display: none;
             font-size: 1.1em;
             color: #C21E56;
             margin-bottom: 15px;
             font-weight: 600;
-            min-height: 1.5em; /* Prevents layout jump when text changes */
+            min-height: 1.5em;
         }
 
         .loader-container {
@@ -134,7 +133,7 @@
             width: 0%;
             height: 100%;
             background: #E30B5C;
-            transition: width 3.5s linear; /* Slightly longer to accommodate both messages */
+            transition: width 3.5s linear;
         }
     </style>
 </head>
@@ -187,28 +186,23 @@
             if (selectedTime < "10:00") {
                 alert("The mall only opens at 10:00 AM! Please pick a later time.");
             } else {
-                // 1. Hide elements to focus on loading
                 timeForm.style.display = "none";
                 mallBox.style.display = "none";
                 dateDisplay.style.display = "none";
                 header.innerText = "Almost there...";
                 
-                // 2. Show status and loader
                 statusMsg.style.display = "block";
                 loaderContainer.style.display = "block";
                 
-                // 3. Start loading bar
                 setTimeout(() => {
                     loaderBar.style.width = "100%";
                 }, 100);
 
-                // 4. Update status message after 2 seconds
                 setTimeout(() => {
                     statusMsg.innerText = "Redirecting to pick a restaurant...";
-                    statusMsg.style.color = "#E30B5C"; // Optional: subtle color change
+                    statusMsg.style.color = "#E30B5C";
                 }, 2000);
 
-                // 5. Save and redirect after a total of 3.5 seconds
                 localStorage.setItem('selectedTime', selectedTime);
                 setTimeout(() => {
                     window.location.href = "page3.html";
@@ -220,5 +214,6 @@
 
 
 </html>
+
 
 
