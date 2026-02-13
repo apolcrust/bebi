@@ -23,7 +23,6 @@
             position: relative;
         }
 
-        /* Chaotic Shuffle Animation */
         @keyframes chaoticShuffle {
             0% { transform: translate(0, 0) rotate(0deg); }
             25% { transform: translate(var(--tx), var(--ty)) rotate(180deg) scale(1.2); z-index: 50; }
@@ -75,14 +74,14 @@
         }
 
         .food-img { 
-            width: 80%;            /* Smaller width to make it look "little bit small" */
+            width: 80%;
             height: 150px; 
-            object-fit: contain;   /* Ensures the "whole picture" is seen without cropping */
-            border-radius: 20px;   /* Round edges */
-            margin: 0 auto 15px auto; /* Centers the image horizontally */
-            display: block;        /* Necessary for margin auto to work */
-            background: #ffffff;   /* Clean white background for the image container */
-            padding: 5px;          /* Adds some space so the logo doesn't touch the edges */
+            object-fit: contain;
+            border-radius: 20px;
+            margin: 0 auto 15px auto;
+            display: block;
+            background: #ffffff;
+            padding: 5px;
         }
 
         .food-title { margin: 5px 0; color: #FF4B6E; font-size: 1.4em; }
@@ -233,7 +232,6 @@
                     clearInterval(countdownInterval);
                     localStorage.setItem('selectedFood', itemName);
                     localStorage.setItem('foodDetail', itemDetail);
-                    // REDIRECT TO E-RECEIPT.HTML
                     window.location.href = 'e-receipt.html';
                 }
             }, 1000);
@@ -242,5 +240,6 @@
 </body>
 
 </html>
+
 
 
