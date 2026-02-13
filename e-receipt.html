@@ -130,53 +130,94 @@
         #music-player-container { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
 
 @media print {
-    @page { 
-        size: auto; 
-        margin: 0; /* Removing margins here to give us full control with padding */
-    }
-    
-    body { 
-        background: none !important; 
-        background-color: white !important; 
-        margin: 0 !important;
-        padding: 0 !important;
-        /* Using flex to perfectly center the content on the physical page */
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important; 
-        align-items: center !important;
-        height: 100vh !important; /* Forces the body to the full height of the paper */
-    }
 
-    .receipt-container {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        width: 100% !important;
-        height: 100% !important;
-    }
+            @page { 
 
-    .receipt { 
-        opacity: 1 !important; 
-        box-shadow: none !important; 
-        border: 1px solid #eee; 
-        margin: 0 auto !important;
-        position: static !important;
-        transform: none !important;
-        page-break-inside: avoid;
-        /* Ensures the receipt scales nicely on paper */
-        width: 350px !important; 
-    }
+                size: auto; /* Let the browser determine size */
 
-    /* Hide all non-receipt elements */
-    .btn-group, 
-    #music-trigger-overlay, 
-    #music-player-container,
-    .heart-icon i, /* Optional: ensures font-awesome icons render */
-    p:has(img) { 
-        display: none !important; 
-    }
-}
+                margin: 5mm; /* Small margin to prevent extra pages */
+
+            }
+
+            
+
+            body { 
+
+                background: none !important; 
+
+                background-color: white !important; 
+
+                display: block !important; /* Changed from flex to block for print stability */
+
+                min-height: auto !important;
+
+                height: auto !important;
+
+                margin: 0 !important;
+
+                padding: 0 !important;
+
+            }
+
+
+
+            .receipt-container {
+
+                display: block !important;
+
+                position: static !important;
+
+                width: 100% !important;
+
+            }
+
+
+
+            .receipt { 
+
+                opacity: 1 !important; 
+
+                box-shadow: none !important; 
+
+                border: 1px solid #eee; 
+
+                margin: 10px auto !important; /* Centers the receipt */
+
+                position: relative !important;
+
+                top: 0 !important;
+
+                left: 0 !important;
+
+                transform: none !important;
+
+                page-break-inside: avoid; /* Prevents the receipt from splitting */
+
+            }
+
+
+
+            /* Completely remove UI elements from print */
+
+            .btn-group, 
+
+            #music-trigger-overlay, 
+
+            #music-player-container,
+
+            p:has(img) { /* Hide "Tap photo" text if visible */
+
+                display: none !important; 
+
+                height: 0 !important;
+
+                margin: 0 !important;
+
+                padding: 0 !important;
+
+            }
+
+        }
     </style>
 </head>
 <body>
@@ -289,6 +330,7 @@
 </body>
 
 </html>
+
 
 
 
