@@ -196,49 +196,58 @@
         </div>
     </div>
 
-    <script>
-        function startEverything() {
-            // 1. Hide the overlay photo
-            const overlay = document.getElementById('music-trigger-overlay');
-            overlay.style.opacity = '0';
-            setTimeout(() => { overlay.style.visibility = 'hidden'; }, 800);
+<script>
+    // PRE-LOAD: This starts loading the song as soon as the page opens
+    const mySong = new Audio("./song/song1.mp3");
+    mySong.preload = "auto"; 
 
-            // 2. Show the receipt and buttons
-            const receipt = document.getElementById('receipt-content');
-            const buttons = document.getElementById('receipt-buttons');
-            receipt.style.opacity = '1';
-            receipt.style.pointerEvents = 'auto';
-            buttons.style.opacity = '1';
-            buttons.style.pointerEvents = 'auto';
+    function startEverything() {
+        // 1. Play Music IMMEDIATELY
+        // We do this first so there is zero delay
+        mySong.play().catch(error => {
+            console.log("Playback failed:", error);
+        });
 
-            // 3. Play Music
-            const playerContainer = document.getElementById('music-player-container');
-            playerContainer.innerHTML = `<audio autoplay src="./song/song1.mp3"></audio>`;
-        }
+        // 2. Hide the overlay photo
+        const overlay = document.getElementById('music-trigger-overlay');
+        overlay.style.opacity = '0';
+        setTimeout(() => { 
+            overlay.style.visibility = 'hidden'; 
+        }, 800);
 
-        // Load dynamic data
-        const selectedTime = localStorage.getItem('selectedTime');
-        const selectedFood = localStorage.getItem('selectedFood');
+        // 3. Show the receipt and buttons
+        const receipt = document.getElementById('receipt-content');
+        const buttons = document.getElementById('receipt-buttons');
+        receipt.style.opacity = '1';
+        receipt.style.pointerEvents = 'auto';
+        buttons.style.opacity = '1';
+        buttons.style.pointerEvents = 'auto';
+    }
 
-        function formatTime(time) {
-            if (!time) return "10:00 AM";
-            let [hours, minutes] = time.split(':');
-            let ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-            return `${hours}:${minutes} ${ampm}`;
-        }
+    // Load dynamic data from localStorage
+    const selectedTime = localStorage.getItem('selectedTime');
+    const selectedFood = localStorage.getItem('selectedFood');
 
-        document.getElementById('receipt-time').innerText = formatTime(selectedTime);
-        document.getElementById('receipt-food').innerText = selectedFood || "Surprise Restaurant";
+    function formatTime(time) {
+        if (!time) return "10:00 AM";
+        let [hours, minutes] = time.split(':');
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        return `${hours}:${minutes} ${ampm}`;
+    }
 
-        function triggerPDF() {
-            alert("To Download as PDF:\n\n1. The Print window will open.\n2. Change 'Destination' to 'Save as PDF'.\n3. Click Save!");
-            window.print();
-        }
-    </script>
+    document.getElementById('receipt-time').innerText = formatTime(selectedTime);
+    document.getElementById('receipt-food').innerText = selectedFood || "Surprise Restaurant";
+
+    function triggerPDF() {
+        alert("To Download as PDF:\n\n1. The Print window will open.\n2. Change 'Destination' to 'Save as PDF'.\n3. Click Save!");
+        window.print();
+    }
+</script>
 </body>
 
 </html>
+
 
 
 
