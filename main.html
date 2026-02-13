@@ -86,10 +86,9 @@
 
         button:nth-child(2) {
             margin-right: -200px;
-            transition: none; /* Keeps the "No" button movement instant */
+            transition: none;
         }
 
-        /* Loading Animation Styles */
         .loader-container {
             display: none;
             width: 80%;
@@ -108,7 +107,6 @@
             transition: width 5s linear;
         }
 
-        /* Star styles preserved */
         .star-1, .star-2, .star-3, .star-4, .star-5, .star-6 {
             position: absolute;
             z-index: -5;
@@ -188,24 +186,19 @@
         const noBtnRect = noBtn.getBoundingClientRect();
 
         yesBtn.addEventListener('click', () => {
-            // 1. Change the text
             question.innerHTML = "Yeheyy! Let's plan our date on February 15, 2026. Mwaaah";
             question.style.fontSize = "2.2em";
 
-            // 2. Change the GIF
             mainGif.src = "https://media1.tenor.com/m/aN_HGmP-ZgAAAAAC/m.gif";
             mainGif.style.width = "400px";
             
-            // 3. Hide buttons
             btnGroup.style.display = "none";
             
-            // 4. Show and start loading animation
             loaderContainer.style.display = "block";
             setTimeout(() => {
                 loaderBar.style.width = "100%";
             }, 100);
 
-            // 5. Redirect after 5 seconds
             setTimeout(() => {
                 window.location.href = "page2.html";
             }, 5000);
@@ -223,5 +216,6 @@
 
 
 </html>
+
 
 
