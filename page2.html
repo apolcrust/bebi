@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set a time Bebiii!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #FF8A9D 0%, #FFC0CB 36%, #FFE6EA 100%);
+            overflow: hidden;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 600px;
+            height: 550px;
+            background: #FFE6EA;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #C21E56;
+            margin-bottom: 10px;
+        }
+
+        .mall-info {
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px dashed #E30B5C;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #C21E56;
+        }
+
+        p.date-text {
+            color: #E30B5C;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .date-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="time"] {
+            width: 250px;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid #E30B5C;
+            border-radius: 15px;
+            color: #C21E56;
+            outline: none;
+            background: white;
+            margin-bottom: 25px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 200px;
+            height: 50px;
+            font-size: 1.2em;
+            color: white;
+            background: #E30B5C;
+            font-weight: 600;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(227, 11, 92, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #C21E56;
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 3em;
+            color: #E30B5C;
+            margin-bottom: 15px;
+        }
+
+        /* --- LOADING & STATUS STYLES --- */
+        #status-message {
+            display: none;
+            font-size: 1.1em;
+            color: #C21E56;
+            margin-bottom: 15px;
+            font-weight: 600;
+            min-height: 1.5em; /* Prevents layout jump when text changes */
+        }
+
+        .loader-container {
+            display: none;
+            width: 80%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #E30B5C;
+        }
+
+        .loader-bar {
+            width: 0%;
+            height: 100%;
+            background: #E30B5C;
+            transition: width 3.5s linear; /* Slightly longer to accommodate both messages */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="icon" id="main-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+        </div>
+        
+        <h2 id="header-text">Our Destination</h2>
+        
+        <div class="mall-info" id="mall-box">
+            <i class="fa-solid fa-clock"></i> 
+            <strong>WiiJump Venice,</strong> 2nd floor San Marco Wing Venice Grand Canal Mall opens at <strong>10:00 AM</strong>
+        </div>
+
+        <p class="date-text" id="date-display">February 15, 2026</p>
+
+        <form class="date-form" id="timeForm">
+            <label style="color: #C21E56; margin-bottom: 10px;">What time should I pick you up?</label>
+            <input type="time" id="date-time" min="10:00" value="10:00" required>
+            
+            <button type="submit" class="submit-btn">Next Step</button>
+        </form>
+
+        <p id="status-message">Saving the picked date...</p>
+
+        <div class="loader-container">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <script>
+        const timeForm = document.getElementById('timeForm');
+        const timeInput = document.getElementById('date-time');
+        const statusMsg = document.getElementById('status-message');
+        const loaderContainer = document.querySelector('.loader-container');
+        const loaderBar = document.querySelector('.loader-bar');
+        
+        const mallBox = document.getElementById('mall-box');
+        const header = document.getElementById('header-text');
+        const dateDisplay = document.getElementById('date-display');
+
+        timeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedTime = timeInput.value;
+            
+            if (selectedTime < "10:00") {
+                alert("The mall only opens at 10:00 AM! Please pick a later time.");
+            } else {
+                // 1. Hide elements to focus on loading
+                timeForm.style.display = "none";
+                mallBox.style.display = "none";
+                dateDisplay.style.display = "none";
+                header.innerText = "Almost there...";
+                
+                // 2. Show status and loader
+                statusMsg.style.display = "block";
+                loaderContainer.style.display = "block";
+                
+                // 3. Start loading bar
+                setTimeout(() => {
+                    loaderBar.style.width = "100%";
+                }, 100);
+
+                // 4. Update status message after 2 seconds
+                setTimeout(() => {
+                    statusMsg.innerText = "Redirecting to pick a restaurant...";
+                    statusMsg.style.color = "#E30B5C"; // Optional: subtle color change
+                }, 2000);
+
+                // 5. Save and redirect after a total of 3.5 seconds
+                localStorage.setItem('selectedTime', selectedTime);
+                setTimeout(() => {
+                    window.location.href = "page3.html";
+                }, 3500); 
+            }
+        });
+    </script>
+</body>
+
+</html>
