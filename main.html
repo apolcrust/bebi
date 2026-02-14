@@ -205,9 +205,8 @@
             tCtx.strokeStyle = step > 5 ? treeColor : treeColor2;
             tCtx.stroke();
 
-            // FIXED: Only draw flowers on small branches to reduce item count
             if (step < 15) {
-                // Reduced random check to 0.4 (fewer but more intentional leaves)
+
                 if (Math.random() > 0.4) {
                     var color = [flowerColorDeep, flowerColor][Math.round(Math.random())],
                         r = 3 + Math.random() * 2;
@@ -231,7 +230,6 @@
         }
 
         function update() {
-            // PERFORMANCE FIX: Cap the number of falling leaves to 25 at a time
             if (fallList.length < 25 && Math.random() > 0.9) { 
                 fallList.push(Object.assign({}, flowerList[Math.floor(Math.random() * flowerList.length)]));
             }
@@ -285,7 +283,7 @@
 
         const symbols = ['❤️', '🌸', '✨'];
         function createParticle() {
-            if(document.querySelectorAll('.particle').length > 15) return; // Cap background particles
+            if(document.querySelectorAll('.particle').length > 15) return;
             const p = document.createElement('div');
             p.classList.add('particle');
             p.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
@@ -319,4 +317,5 @@
     </script>
 </body>
 </html>
+
 
