@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-
         .particle {
             position: fixed;
             top: -65px;
@@ -41,21 +40,6 @@
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             80% { opacity: 0.8; }
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-
-
-        .burst-particle {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            pointer-events: none;
-            z-index: 15;
-            animation: burstOut 1.5s ease-out forwards;
-        }
-
-        @keyframes burstOut {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-            100% { transform: translate(var(--tw), var(--th)) rotate(var(--tr)) scale(1.5); opacity: 0; }
         }
 
         .wrapper {
@@ -132,7 +116,6 @@
             transition: width 5s linear;
         }
 
-
         .star-1, .star-2, .star-3, .star-4, .star-5, .star-6 { position: absolute; z-index: -5; transition: all 1s ease; }
         .star-1 { top: 20%; left: 20%; width: 25px; transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96); }
         .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
@@ -188,7 +171,6 @@
 
         const symbols = ['❤️', '🌸', '✨', '🌹', '💖', '🌼'];
 
-
         function createParticle() {
             const particle = document.createElement('div');
             particle.classList.add('particle');
@@ -202,32 +184,8 @@
         }
         setInterval(createParticle, 400);
 
-
-        function createBurst() {
-            for (let i = 0; i < 50; i++) {
-                const p = document.createElement('div');
-                p.classList.add('burst-particle');
-                p.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-                p.style.fontSize = Math.random() * 30 + 20 + 'px';
-                
-
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 400 + 100;
-                const tx = Math.cos(angle) * distance + 'px';
-                const ty = Math.sin(angle) * distance + 'px';
-                const tr = Math.random() * 360 + 'deg';
-                
-                p.style.setProperty('--tw', tx);
-                p.style.setProperty('--th', ty);
-                p.style.setProperty('--tr', tr);
-                
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 1500);
-            }
-        }
-
         yesBtn.addEventListener('click', () => {
-            createBurst();
+            // createBurst() removed from here
             
             question.innerHTML = "Yeheyy! Let's plan our date on February 15, 2026. Mwaaah";
             question.style.fontSize = "2.2em";
@@ -248,4 +206,5 @@
         });
     </script>
 </body>
+
 </html>
