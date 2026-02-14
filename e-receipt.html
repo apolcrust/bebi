@@ -19,6 +19,22 @@
             margin: 0;
             font-family: 'Poppins', sans-serif;
             padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .particle {
+            position: fixed;
+            top: -65px;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 1;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
         .receipt-container {
@@ -27,6 +43,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            z-index: 10;
         }
 
         .receipt, .btn-group {
@@ -142,14 +159,13 @@
                 padding: 0 !important;
             }
 
-
+            .particle { display: none !important; }
 
             .receipt-container {
                 display: block !important;
                 position: static !important;
                 width: 100% !important;
             }
-
 
             .receipt { 
                 opacity: 1 !important; 
@@ -238,10 +254,26 @@
     const mySong = new Audio("./song/song1.mp3");
     mySong.preload = "auto"; 
 
+    const symbols = ['❤️', '🌸', '✨', '🌹', '💖', '🌼'];
+
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.fontSize = Math.random() * 20 + 25 + 'px';
+        const duration = Math.random() * 4 + 6;
+        particle.style.animationDuration = duration + 's';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), duration * 1000);
+    }
+
     function startEverything() {
         mySong.play().catch(error => {
             console.log("Playback failed:", error);
         });
+
+        setInterval(createParticle, 400);
 
         const overlay = document.getElementById('music-trigger-overlay');
         overlay.style.opacity = '0';
@@ -277,15 +309,4 @@
     }
 </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
