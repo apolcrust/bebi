@@ -27,6 +27,21 @@
             overflow: hidden;
         }
 
+        .particle {
+            position: fixed;
+            top: -65px;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 1;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
         .wrapper {
             position: relative;
             width: 600px;
@@ -40,6 +55,7 @@
             padding: 30px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
+            z-index: 10;
         }
 
         h2 {
@@ -161,7 +177,7 @@
             <button type="submit" class="submit-btn">Next Step</button>
         </form>
 
-        <p id="status-message">Saving the picked date...</p>
+        <p id="status-message">Saving the picked time...</p>
 
         <div class="loader-container">
             <div class="loader-bar"></div>
@@ -169,6 +185,21 @@
     </div>
 
     <script>
+        const symbols = ['❤️', '🌸', '✨', '🌹', '💖', '🌼'];
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.fontSize = Math.random() * 20 + 25 + 'px';
+            const duration = Math.random() * 4 + 6;
+            particle.style.animationDuration = duration + 's';
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), duration * 1000);
+        }
+        setInterval(createParticle, 400);
+
         const timeForm = document.getElementById('timeForm');
         const timeInput = document.getElementById('date-time');
         const statusMsg = document.getElementById('status-message');
@@ -212,8 +243,4 @@
     </script>
 </body>
 
-
 </html>
-
-
-
